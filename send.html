@@ -1,29 +1,57 @@
-no<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ur">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>آپ کا عید مبارک گفٹ تیار ہے</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .typing {
+            display: inline-block;
+            border-right: 2px solid #fff;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1 class="neon-text">🎉 عید مبارک 🎉</h1>
-        <p id="relationMessage" class="normal-text"></p>
-        <h2 id="senderName" class="neon-text name-style"></h2>
-        <p id="senderMessage" class="normal-text"></p>
+        <h1 class="neon-text typing" id="animatedTitle">🎉 عید مبارک 🎉</h1>
+        <p id="relationMessage" class="normal-text typing"></p>
+        <h2 id="senderName" class="neon-text name-style typing"></h2>
+        <p id="senderMessage" class="normal-text typing"></p>
         <button onclick="downloadApp()">سکرین شارٹ لےکر اپنے  پیاروں کو سینڈ کر دہ</button>
     </div>
 
     <script>
-        // لوکل سٹوریج سے ڈیٹا لوڈ کرنا
-        let relation = localStorage.getItem("relation");
-        let senderName = localStorage.getItem("name");
+        function typeEffect(element, text, speed, callback) {
+            let i = 0;
+            function typing() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(typing, speed);
+                } else if (callback) {
+                    callback();
+                }
+            }
+            typing();
+        }
 
-        // ڈیٹا سیٹ کرنا
-        document.getElementById("relationMessage").innerText = relation;
-        document.getElementById("senderName").innerText = senderName;
-        document.getElementById("senderMessage").innerText = "🥰کی طرف سے 🎉 ایڈوانس عید الفطر مبارک ہو 🎉 .ایک خوبصورت دعا 🤲 کےساتھ عید کا خوبصورت دن آپ کی زندگی میں خوشیاں،🤗 محبت 🥰 اور کامیابیاں 👨‍💼 لے کر آئے۔ آمین ثم آمین🤲 آپ ہمیشہ ہستے😁 مسکراتے😊 رہیں 🥰";
+        // لوکل سٹوریج سے ڈیٹا لوڈ کرنا
+        let relation = localStorage.getItem("relation") || "";
+        let senderName = localStorage.getItem("name") || "";
+        let message = "🥰کی طرف سے 🎉 ایڈوانس عید الفطر مبارک ہو 🎉 .ایک خوبصورت دعا 🤲 کےساتھ عید کا خوبصورت دن آپ کی زندگی میں خوشیاں،🤗 محبت 🥰 اور کامیابیاں 👨‍💼 لے کر آئے۔ آمین ثم آمین🤲 آپ ہمیشہ ہستے😁 مسکراتے😊 رہیں 🥰";
+
+        // ٹائپنگ ایفیکٹ لگانا
+        typeEffect(document.getElementById("animatedTitle"), "🎉 عید مبارک 🎉", 100, function() {
+            typeEffect(document.getElementById("relationMessage"), relation, 50, function() {
+                typeEffect(document.getElementById("senderName"), senderName, 50, function() {
+                    typeEffect(document.getElementById("senderMessage"), message, 50);
+                });
+            });
+        });
+
         // ڈاؤن لوڈ بٹن فنکشن
         function downloadApp() {
             alert("📷 اپنے موبائل سے سکرین شارٹ لو 📷!");
