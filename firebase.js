@@ -4,12 +4,12 @@ import { getFirestore, collection, addDoc } from "https://www.gstatic.com/fireba
 
 // Firebase کنفیگریشن (یہاں وہی کوڈ پیسٹ کرو جو تم نے Firebase Console سے لیا تھا)
 const firebaseConfig = {
-  apiKey: "تمہاری API Key",
-  authDomain: "تمہارا Auth Domain",
-  projectId: "تمہارا Project ID",
-  storageBucket: "تمہارا Storage Bucket",
-  messagingSenderId: "تمہارا Messaging Sender ID",
-  appId: "تمہارا App ID"
+  apiKey: "AIzaSyCWxGEAYSmqUFXhC-5yp-Y8PtGKHQ_oxFM",
+  authDomain: "eid-gift-fe0f6.firebaseapp.com",
+  projectId: "eid-gift-fe0f6",
+  storageBucket: "eid-gift-fe0f6.firebasestorage.app",
+  messagingSenderId: "464963301865",
+  appId: "1:464963301865:web:7ec0ae86fd310e09efdb78"
 };
 
 // Firebase انیشیلائز کرنا
