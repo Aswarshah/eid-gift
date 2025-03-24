@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>آپ کا عید مبارک گفٹ تیار ہے</title>
-    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         body {
             background-color: black;
@@ -20,15 +20,6 @@
             align-items: center;
             height: 100vh;
             padding: 10px;
-        }
-        .typing {
-            display: inline-block;
-            border-right: 2px solid white;
-            white-space: pre-line;
-            overflow: hidden;
-            max-width: 90%;
-            font-size: 22px;
-            line-height: 1.6;
         }
         h1 {
             font-size: 35px;
@@ -50,31 +41,26 @@
             75% { text-shadow: 0 0 10px #ffff00, 0 0 20px #ff00ff, 0 0 30px #ffff00; }
             100% { text-shadow: 0 0 10px #ff0000, 0 0 20px #ff7300, 0 0 30px #ff0000; }
         }
-        p {
-            max-width: 90%;
-            font-size: 20px;
-            text-align: center;
-            white-space: pre-line;
-        }
-        button {
-            background-color: white;
-            color: black;
+        .share-button {
+            background: none;
+            color: white;
             padding: 10px 20px;
             font-size: 16px;
-            border: none;
+            border: 2px solid white;
+            text-shadow: 0 0 5px #fff, 0 0 10px #ff0000, 0 0 15px #ff7300;
             cursor: pointer;
             margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="capture">
         <h1 id="animatedTitle">🎉 عید مبارک 🎉</h1>
-        <p id="relationMessage" class="neon-text typing"></p>
-        <h2 id="senderName" class="neon-text typing"></h2>
-        <p id="senderMessage" class="neon-text typing"></p>
-        <button onclick="downloadApp()">سکرین شارٹ لےکر اپنے  پیاروں کو سینڈ کر دہ</button>
+        <p id="relationMessage" class="neon-text"></p>
+        <h2 id="senderName" class="neon-text"></h2>
+        <p id="senderMessage" class="neon-text"></p>
     </div>
+    <button class="share-button" onclick="captureAndShare()">📷 اپنے دوستوں سے شیئر کریں</button>
 
     <script>
         function typeEffect(element, text, speed, callback) {
@@ -91,7 +77,6 @@
             typing();
         }
 
-        // لوکل سٹوریج سے ڈیٹا لوڈ کرنا
         let relation = localStorage.getItem("relation") || "";
         let senderName = localStorage.getItem("name") || "";
         let message = "🥰 کی طرف سے\n🎉 ایڈوانس عید الفطر مبارک ہو 🎉\n\n" +
@@ -101,16 +86,25 @@
                       "آمین ثم آمین🤲\n" +
                       "آپ ہمیشہ ہنستے😁 مسکراتے😊 رہیں 🥰";
 
-        // ٹائپنگ ایفیکٹ لگانا
         typeEffect(document.getElementById("relationMessage"), relation, 50, function() {
             typeEffect(document.getElementById("senderName"), senderName, 50, function() {
                 typeEffect(document.getElementById("senderMessage"), message, 50);
             });
         });
 
-        // ڈاؤن لوڈ بٹن فنکشن
-        function downloadApp() {
-            alert("📷 اپنے موبائل سے سکرین شارٹ لو 📷!");
+        function captureAndShare() {
+            html2canvas(document.getElementById("capture")).then(canvas => {
+                canvas.toBlob(blob => {
+                    let file = new File([blob], "eid_mubarak.png", { type: "image/png" });
+                    let data = new FormData();
+                    data.append("file", file);
+
+                    let url = URL.createObjectURL(file);
+                    let whatsappLink = `https://api.whatsapp.com/send?text=🎉 عید مبارک 🎉%0A%0A${encodeURIComponent(message)}&media=${url}`;
+                    
+                    window.open(whatsappLink, "_blank");
+                });
+            });
         }
     </script>
 </body>
