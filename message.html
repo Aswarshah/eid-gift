@@ -5,11 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>میسج بنائیں</title>
     <style>
-        @keyframes dropAndType {
-            0% { opacity: 0; transform: translateY(-50px); }
-            50% { opacity: 1; transform: translateY(0); }
-        }
-
         body {
             background-color: black;
             color: white;
@@ -23,17 +18,14 @@
             font-size: 24px;
             font-weight: bold;
             color: white;
-            text-shadow: 0 0 5px #fff, 0 0 10px #ff00ff, 0 0 15px #ff00ff, 0 0 20px #ff00ff;
-            overflow: hidden;
-            display: inline-block;
-            white-space: nowrap;
+            text-shadow: 0 0 5px red, 0 0 10px yellow, 0 0 15px green, 0 0 20px blue;
+            animation: neonGlow 2s infinite alternate;
         }
 
-        .letter {
-            display: inline-block;
-            opacity: 0;
-            transform: translateY(-50px);
-            animation: dropAndType 0.5s forwards;
+        @keyframes neonGlow {
+            0% { text-shadow: 0 0 5px red, 0 0 10px yellow, 0 0 15px green, 0 0 20px blue; }
+            50% { text-shadow: 0 0 5px yellow, 0 0 10px green, 0 0 15px blue, 0 0 20px purple; }
+            100% { text-shadow: 0 0 5px green, 0 0 10px blue, 0 0 15px purple, 0 0 20px red; }
         }
 
         input {
@@ -41,6 +33,13 @@
             padding: 10px;
             margin: 20px 0;
             font-size: 18px;
+            border: 2px solid white;
+            background: transparent;
+            color: white;
+            text-align: center;
+            outline: none;
+            border-radius: 5px;
+            text-shadow: 0 0 5px white, 0 0 10px white;
         }
 
         .buttons {
@@ -62,22 +61,7 @@
             position: relative;
             overflow: hidden;
             text-shadow: 0 0 5px white, 0 0 10px white;
-        }
-
-        .buttons button::before {
-            content: "";
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: -100%;
-            background: linear-gradient(90deg, red, yellow, green, blue, purple);
-            transition: 0.5s;
-            opacity: 0.7;
-        }
-
-        .buttons button:hover::before {
-            left: 0;
+            animation: buttonBlink 2s infinite alternate;
         }
 
         @keyframes buttonBlink {
@@ -88,26 +72,25 @@
             100% { border-color: purple; box-shadow: 0 0 5px purple; }
         }
 
-        .buttons button {
-            animation: buttonBlink 2s infinite alternate;
-        }
-
         .send-button {
-            background-color: red;
-            color: white;
             font-size: 18px;
             padding: 10px 20px;
             margin-top: 20px;
-            border: none;
+            border: 2px solid white;
             cursor: pointer;
             border-radius: 5px;
+            background: transparent;
+            color: white;
+            font-weight: bold;
+            text-shadow: 0 0 5px white, 0 0 10px white;
+            animation: buttonBlink 2s infinite alternate;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h2 id="animatedText" class="neon-text">اپنے پیارے کے لیے عید مبارک کا پیغام بنائیں</h2>
+        <h2 class="neon-text">اپنے پیارے کے لیے عید مبارک کا پیغام بنائیں</h2>
         <input type="text" id="nameInput" placeholder="اپنا نام لکھیں">
         <div class="buttons">
             <button onclick="setRelation('میرے پیارے سے بھائی کو')">بھائی</button>
@@ -144,20 +127,6 @@
             localStorage.setItem("name", name);
             window.location.href = "send.html";
         }
-
-        document.addEventListener("DOMContentLoaded", function () {
-            let textElement = document.getElementById("animatedText");
-            let text = textElement.innerText;
-            textElement.innerText = "";
-
-            for (let i = 0; i < text.length; i++) {
-                let span = document.createElement("span");
-                span.innerText = text[i];
-                span.classList.add("letter");
-                span.style.animationDelay = `${i * 0.1}s`;
-                textElement.appendChild(span);
-            }
-        });
     </script>
 
 </body>
