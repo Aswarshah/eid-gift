@@ -4,84 +4,125 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>میسج بنائیں</title>
-    <link rel="stylesheet" href="style.css">
     <style>
-        /* نیون بلنکنگ ٹیکسٹ */
-        @keyframes neonBlink {
-            0% { color: red; }
-            25% { color: blue; }
-            50% { color: green; }
-            75% { color: yellow; }
-            100% { color: red; }
+        @keyframes dropAndType {
+            0% { opacity: 0; transform: translateY(-50px); }
+            50% { opacity: 1; transform: translateY(0); }
         }
+
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        .container { margin-top: 50px; }
+
         .neon-text {
             font-size: 24px;
             font-weight: bold;
-            text-align: center;
-            animation: neonBlink 1.5s infinite alternate;
-        }
-
-        /* بٹن لائٹ ایفیکٹ */
-        .buttons button {
-            font-size: 18px;
-            padding: 10px;
-            margin: 5px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease-in-out;
-        }
-
-        @keyframes buttonGlow {
-            0% { box-shadow: 0 0 10px red; }
-            25% { box-shadow: 0 0 10px blue; }
-            50% { box-shadow: 0 0 10px green; }
-            75% { box-shadow: 0 0 10px yellow; }
-            100% { box-shadow: 0 0 10px red; }
-        }
-
-        .buttons button:nth-child(1) { animation: buttonGlow 2s infinite alternate 0s; }
-        .buttons button:nth-child(2) { animation: buttonGlow 2s infinite alternate 0.2s; }
-        .buttons button:nth-child(3) { animation: buttonGlow 2s infinite alternate 0.4s; }
-        .buttons button:nth-child(4) { animation: buttonGlow 2s infinite alternate 0.6s; }
-        .buttons button:nth-child(5) { animation: buttonGlow 2s infinite alternate 0.8s; }
-        .buttons button:nth-child(6) { animation: buttonGlow 2s infinite alternate 1s; }
-        .buttons button:nth-child(7) { animation: buttonGlow 2s infinite alternate 1.2s; }
-        .buttons button:nth-child(8) { animation: buttonGlow 2s infinite alternate 1.4s; }
-        .buttons button:nth-child(9) { animation: buttonGlow 2s infinite alternate 1.6s; }
-        .buttons button:nth-child(10) { animation: buttonGlow 2s infinite alternate 1.8s; }
-        .buttons button:nth-child(11) { animation: buttonGlow 2s infinite alternate 2s; }
-
-        /* سینڈ بٹن */
-        .send-button {
-            font-size: 20px;
-            padding: 12px;
-            margin-top: 10px;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
             color: white;
-            background-color: red; /* اگر گرین چاہیے تو 'green' کر دینا */
-            box-shadow: 0 0 10px red;
+            text-shadow: 0 0 5px #fff, 0 0 10px #ff00ff, 0 0 15px #ff00ff, 0 0 20px #ff00ff;
+            overflow: hidden;
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        .letter {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(-50px);
+            animation: dropAndType 0.5s forwards;
+        }
+
+        input {
+            width: 80%;
+            padding: 10px;
+            margin: 20px 0;
+            font-size: 18px;
+        }
+
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .buttons button {
+            padding: 10px 15px;
+            margin: 5px;
+            font-size: 16px;
+            border: 2px solid white;
+            cursor: pointer;
+            border-radius: 5px;
+            background: transparent;
+            color: white;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+            text-shadow: 0 0 5px white, 0 0 10px white;
+        }
+
+        .buttons button::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: -100%;
+            background: linear-gradient(90deg, red, yellow, green, blue, purple);
+            transition: 0.5s;
+            opacity: 0.7;
+        }
+
+        .buttons button:hover::before {
+            left: 0;
+        }
+
+        @keyframes buttonBlink {
+            0% { border-color: red; box-shadow: 0 0 5px red; }
+            25% { border-color: yellow; box-shadow: 0 0 5px yellow; }
+            50% { border-color: green; box-shadow: 0 0 5px green; }
+            75% { border-color: blue; box-shadow: 0 0 5px blue; }
+            100% { border-color: purple; box-shadow: 0 0 5px purple; }
+        }
+
+        .buttons button {
+            animation: buttonBlink 2s infinite alternate;
+        }
+
+        .send-button {
+            background-color: red;
+            color: white;
+            font-size: 18px;
+            padding: 10px 20px;
+            margin-top: 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
+
     <div class="container">
-        <h2 class="neon-text">اپنے پیارے کے لیے عید مبارک کا پیغام بنائیں</h2>
+        <h2 id="animatedText" class="neon-text">اپنے پیارے کے لیے عید مبارک کا پیغام بنائیں</h2>
         <input type="text" id="nameInput" placeholder="اپنا نام لکھیں">
         <div class="buttons">
-            <button onclick="setRelation('میرے پیارے بھائی کو')">بھائی</button>
-            <button onclick="setRelation('میری پیاری بہن کو')">بہن</button>
+            <button onclick="setRelation('میرے پیارے سے بھائی کو')">بھائی</button>
+            <button onclick="setRelation('میری پیاری سی بہن کو')">بہن</button>
             <button onclick="setRelation('میری پیاری امی جان کو')">امی</button>
             <button onclick="setRelation('میرے پیارے ابو جان کو')">ابو</button>
             <button onclick="setRelation('میرے پیارے دوست کو')">دوست</button>
             <button onclick="setRelation('میری پیاری کزن کو')">کزن</button>
-            <button onclick="setRelation('میرے پیارے کزن کو')">کزن</button>
             <button onclick="setRelation('میرے پیارے چاچا جان کو')">چاچا</button>
             <button onclick="setRelation('میری پیاری چاچی جان کو')">چاچی</button>
             <button onclick="setRelation('میرے پیارے ماموں جان کو')">ماموں</button>
             <button onclick="setRelation('میری پیاری مامی جان کو')">مامی</button>
             <button onclick="setRelation('میرے پیارے استاد جی کو')">استاد</button>
+            <button onclick="setRelation('میری پیاری خالہ جان کو')">خالہ</button>
+            <button onclick="setRelation('میرے پیارے خالو جان کو')">خالو</button>
         </div>
         <button class="send-button" onclick="sendMessage()">سینڈ</button>
     </div>
@@ -103,6 +144,21 @@
             localStorage.setItem("name", name);
             window.location.href = "send.html";
         }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            let textElement = document.getElementById("animatedText");
+            let text = textElement.innerText;
+            textElement.innerText = "";
+
+            for (let i = 0; i < text.length; i++) {
+                let span = document.createElement("span");
+                span.innerText = text[i];
+                span.classList.add("letter");
+                span.style.animationDelay = `${i * 0.1}s`;
+                textElement.appendChild(span);
+            }
+        });
     </script>
+
 </body>
 </html>
