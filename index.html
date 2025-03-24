@@ -1,6 +1,22 @@
 <!DOCTYPE html>
 <html lang="ur">
 <head>
+    <script type="module" src="firebase.js"></script>
+    <input type="text" id="messageInput" placeholder="اپنا عید میسج لکھیں">
+<button onclick="sendMessage()">Send</button>
+    <script type="module">
+  import { addGreetingMessage } from "./firebase.js";
+  
+  window.sendMessage = function () {
+    const message = document.getElementById("messageInput").value;
+    if (message.trim() !== "") {
+      addGreetingMessage(message);
+      alert("آپ کا عید میسج محفوظ ہو گیا!");
+    } else {
+      alert("براہ کرم کوئی میسج لکھیں!");
+    }
+  };
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>عید مبارک</title>
@@ -42,6 +58,7 @@
 
   // Example Usage (تم اپنی HTML سے اس کو کال کر سکتے ہو)
   saveMessage("Ali", "Eid Mubarak!");
+    
 </script>
 <body>
     <div class="container">
