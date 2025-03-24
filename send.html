@@ -3,24 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عید مبارک</title>
+    <title>🌙🎉 عید مبارک 🎉🌙</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&display=swap');
+
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Noto Nastaliq Urdu', serif;
             text-align: center;
             direction: rtl;
             background-color: #000; /* بلیک بیک گراؤنڈ */
             color: white;
             padding: 20px;
         }
+        
+        h1 {
+            font-size: 35px;
+            color: #FFD700;
+            text-shadow: 0px 0px 15px #FFD700, 0px 0px 30px #FF4500;
+            animation: glow 1.5s infinite alternate;
+        }
+        
+        @keyframes glow {
+            0% { text-shadow: 0px 0px 10px #FFD700, 0px 0px 20px #FF4500; }
+            100% { text-shadow: 0px 0px 20px #FFD700, 0px 0px 40px #FF4500; }
+        }
+
         #message-box {
+            font-family: 'Noto Nastaliq Urdu', serif;
             background: black; /* بلیک بیک گراؤنڈ */
             color: white;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(255,255,255,0.3);
+            box-shadow: 0px 0px 15px rgba(255,255,255,0.4);
             display: inline-block;
+            animation: blink 2s infinite alternate;
         }
+
+        @keyframes blink {
+            0% { box-shadow: 0px 0px 15px rgba(255,255,255,0.4); }
+            100% { box-shadow: 0px 0px 25px rgba(255,255,255,0.9); }
+        }
+
         button {
             background-color: #28a745;
             color: white;
@@ -31,6 +54,7 @@
             cursor: pointer;
             margin-top: 15px;
         }
+
         button:hover {
             background-color: #218838;
         }
@@ -38,7 +62,7 @@
 </head>
 <body>
 
-    <h1>🎉 عید مبارک 🎉</h1>
+    <h1>🌙🎉 عید مبارک 🎉🌙</h1>
 
     <div id="message-box">
         <h2 id="relationMessage"></h2>
@@ -81,17 +105,22 @@
             });
         });
 
-        // اسکرین شاٹ لینے والا فنکشن (بلیک بیک گراؤنڈ کے ساتھ)
+        // اسکرین شاٹ لینے والا فنکشن (Full HD اور بلر فری)
         function takeScreenshot() {
             let messageBox = document.getElementById("message-box");
 
-            // پہلے بیک گراؤنڈ کو بلیک رکھنا
+            // بلیک بیک گراؤنڈ، وائٹ ٹیکسٹ، اور نستعلیق فونٹ کو برقرار رکھنا
             messageBox.style.background = "black";
             messageBox.style.color = "white";
+            messageBox.style.fontFamily = "'Noto Nastaliq Urdu', serif";
 
-            html2canvas(messageBox, {backgroundColor: null}).then(canvas => {
+            html2canvas(messageBox, {
+                backgroundColor: null,  // بیک گراؤنڈ کو بلیک رکھنے کے لیے
+                scale: 3, // ہائی ریزولوشن کے لیے
+                useCORS: true  // فونٹس بلر نہ ہوں
+            }).then(canvas => {
                 let link = document.createElement("a");
-                link.href = canvas.toDataURL("image/png");
+                link.href = canvas.toDataURL("image/png", 1.0); // فل کوالٹی (100%)
                 link.download = "Eid_Mubarak.png";
                 link.click();
             });
