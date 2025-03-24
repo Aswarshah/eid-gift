@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>آپ کا عید مبارک گفٹ تیار ہے</title>
+    <title>عید مبارک</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         body {
@@ -11,101 +11,76 @@
             color: white;
             text-align: center;
             font-family: Arial, sans-serif;
-            padding: 20px;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
         .container {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            padding: 10px;
+            padding: 20px;
+            border: 2px solid white;
+            width: 90%;
+            max-width: 500px;
+            box-sizing: border-box;
         }
         h1 {
             font-size: 35px;
             font-weight: bold;
             color: white;
             text-shadow: 0 0 10px #fff, 0 0 20px #ff0000, 0 0 30px #ff7300;
-            animation: blink 1s infinite alternate;
         }
-        .neon-text {
+        p {
             font-size: 20px;
-            color: white;
-            text-shadow: 0 0 5px #fff, 0 0 10px #ff0000, 0 0 15px #ff7300, 0 0 20px #ff0000;
-            animation: blink 1s infinite alternate;
+            white-space: pre-line;
         }
-        @keyframes blink {
-            0% { text-shadow: 0 0 10px #ff0000, 0 0 20px #ff7300, 0 0 30px #ff0000; }
-            25% { text-shadow: 0 0 10px #00ff00, 0 0 20px #00ffff, 0 0 30px #00ff00; }
-            50% { text-shadow: 0 0 10px #0000ff, 0 0 20px #7300ff, 0 0 30px #0000ff; }
-            75% { text-shadow: 0 0 10px #ffff00, 0 0 20px #ff00ff, 0 0 30px #ffff00; }
-            100% { text-shadow: 0 0 10px #ff0000, 0 0 20px #ff7300, 0 0 30px #ff0000; }
-        }
-        .share-button {
-            background: none;
+        .screenshot-button {
+            background-color: transparent;
             color: white;
+            border: 2px solid white;
             padding: 10px 20px;
             font-size: 16px;
-            border: 2px solid white;
-            text-shadow: 0 0 5px #fff, 0 0 10px #ff0000, 0 0 15px #ff7300;
             cursor: pointer;
-            margin-top: 20px;
+            margin-top: 10px;
+        }
+        .screenshot-button:hover {
+            background-color: white;
+            color: black;
         }
     </style>
 </head>
 <body>
-    <div class="container" id="capture">
-        <h1 id="animatedTitle">🎉 عید مبارک 🎉</h1>
-        <p id="relationMessage" class="neon-text"></p>
-        <h2 id="senderName" class="neon-text"></h2>
-        <p id="senderMessage" class="neon-text"></p>
+
+    <div class="container" id="captureArea">
+        <h1>🎉 عید مبارک 🎉</h1>
+        <p>🥰 کی طرف سے\n🎉 ایڈوانس عید الفطر مبارک ہو 🎉\n\n" +
+           "ایک خوبصورت دعا 🤲 کےساتھ\n" +
+           "عید کا خوبصورت دن\n" +
+           "آپ کی زندگی میں خوشیاں،🤗 محبت 🥰 اور کامیابیاں 👨‍💼 لے کر آئے۔\n\n" +
+           "آمین ثم آمین 🤲\n" +
+           "آپ ہمیشہ ہنستے😁 مسکراتے😊 رہیں 🥰</p>
+        <button class="screenshot-button" onclick="captureScreenshot()">📷 اسکرین شاٹ لیں</button>
     </div>
-    <button class="share-button" onclick="captureAndShare()">📷 اپنے دوستوں سے شیئر کریں</button>
 
     <script>
-        function typeEffect(element, text, speed, callback) {
-            let i = 0;
-            function typing() {
-                if (i < text.length) {
-                    element.innerHTML += text.charAt(i);
-                    i++;
-                    setTimeout(typing, speed);
-                } else if (callback) {
-                    callback();
-                }
-            }
-            typing();
-        }
-
-        let relation = localStorage.getItem("relation") || "";
-        let senderName = localStorage.getItem("name") || "";
-        let message = "🥰 کی طرف سے\n🎉 ایڈوانس عید الفطر مبارک ہو 🎉\n\n" +
-                      "ایک خوبصورت دعا 🤲 کےساتھ\n" +
-                      "عید کا خوبصورت دن\n" +
-                      "آپ کی زندگی میں خوشیاں،🤗 محبت 🥰 اور کامیابیاں 👨‍💼 لے کر آئے۔\n\n" +
-                      "آمین ثم آمین🤲\n" +
-                      "آپ ہمیشہ ہنستے😁 مسکراتے😊 رہیں 🥰";
-
-        typeEffect(document.getElementById("relationMessage"), relation, 50, function() {
-            typeEffect(document.getElementById("senderName"), senderName, 50, function() {
-                typeEffect(document.getElementById("senderMessage"), message, 50);
-            });
-        });
-
-        function captureAndShare() {
-            html2canvas(document.getElementById("capture")).then(canvas => {
-                canvas.toBlob(blob => {
-                    let file = new File([blob], "eid_mubarak.png", { type: "image/png" });
-                    let data = new FormData();
-                    data.append("file", file);
-
-                    let url = URL.createObjectURL(file);
-                    let whatsappLink = `https://api.whatsapp.com/send?text=🎉 عید مبارک 🎉%0A%0A${encodeURIComponent(message)}&media=${url}`;
-                    
-                    window.open(whatsappLink, "_blank");
-                });
+        function captureScreenshot() {
+            let captureArea = document.getElementById("captureArea");
+            html2canvas(captureArea).then(canvas => {
+                let link = document.createElement('a');
+                link.href = canvas.toDataURL("image/png");
+                link.download = "eid_mubarak.png";
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
             });
         }
     </script>
+
 </body>
 </html>
