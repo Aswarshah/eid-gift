@@ -44,19 +44,11 @@
             100% { box-shadow: 0px 0px 25px rgba(255,255,255,0.9); }
         }
 
-        button {
-            background-color: #28a745;
-            color: white;
-            border: none;
-            padding: 10px 20px;
+        #screenshot-text {
             font-size: 18px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 15px;
-        }
-
-        button:hover {
-            background-color: #218838;
+            margin-top: 20px;
+            color: #FFD700;
+            text-shadow: 0px 0px 10px #FFD700;
         }
     </style>
 </head>
@@ -70,8 +62,7 @@
         <p id="senderMessage"></p>
     </div>
 
-    <br>
-    <button onclick="takeScreenshot()">📷 اسکرین شاٹ لو اور ڈاؤن لوڈ کرو 📷</button>
+    <p id="screenshot-text">📷 اس پیج کا اسکرین شاٹ لے کر اپنے رشتے داروں کو سینڈ کریں۔ 📷</p>
 
     <script>
         function typeEffect(element, text, speed, callback) {
@@ -104,31 +95,7 @@
                 typeEffect(document.getElementById("senderMessage"), message, 50);
             });
         });
-
-        // اسکرین شاٹ لینے والا فنکشن (Full HD اور بلر فری)
-        function takeScreenshot() {
-            let messageBox = document.getElementById("message-box");
-
-            // بلیک بیک گراؤنڈ، وائٹ ٹیکسٹ، اور نستعلیق فونٹ کو برقرار رکھنا
-            messageBox.style.background = "black";
-            messageBox.style.color = "white";
-            messageBox.style.fontFamily = "'Noto Nastaliq Urdu', serif";
-
-            html2canvas(messageBox, {
-                backgroundColor: null,  // بیک گراؤنڈ کو بلیک رکھنے کے لیے
-                scale: 3, // ہائی ریزولوشن کے لیے
-                useCORS: true  // فونٹس بلر نہ ہوں
-            }).then(canvas => {
-                let link = document.createElement("a");
-                link.href = canvas.toDataURL("image/png", 1.0); // فل کوالٹی (100%)
-                link.download = "Eid_Mubarak.png";
-                link.click();
-            });
-        }
     </script>
-
-    <!-- html2canvas لائبریری لوڈ کرنا -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
 
 </body>
 </html>
