@@ -15,14 +15,14 @@
             color: white;
             padding: 20px;
         }
-        
+
         h1 {
             font-size: 35px;
             color: #FFD700;
             text-shadow: 0px 0px 15px #FFD700, 0px 0px 30px #FF4500;
             animation: glow 1.5s infinite alternate;
         }
-        
+
         @keyframes glow {
             0% { text-shadow: 0px 0px 10px #FFD700, 0px 0px 20px #FF4500; }
             100% { text-shadow: 0px 0px 20px #FFD700, 0px 0px 40px #FF4500; }
@@ -30,13 +30,31 @@
 
         #message-box {
             font-family: 'Noto Nastaliq Urdu', serif;
-            background: black; /* بلیک بیک گراؤنڈ */
+            background: black;
             color: white;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0px 0px 15px rgba(255,255,255,0.4);
             display: inline-block;
             animation: blink 2s infinite alternate;
+        }
+
+        /* نیون لائٹ ایفیکٹ */
+        .neon-white {
+            color: white;
+            text-shadow: 0px 0px 10px white, 0px 0px 20px white;
+            animation: neonBlink 1.5s infinite alternate;
+        }
+
+        .neon-green {
+            color: #00FF00;
+            text-shadow: 0px 0px 10px #00FF00, 0px 0px 20px #00FF00;
+            animation: neonBlink 1.5s infinite alternate;
+        }
+
+        @keyframes neonBlink {
+            0% { text-shadow: 0px 0px 10px white, 0px 0px 20px white; }
+            100% { text-shadow: 0px 0px 20px white, 0px 0px 40px white; }
         }
 
         @keyframes blink {
@@ -57,9 +75,9 @@
     <h1>🌙🎉 عید مبارک 🎉🌙</h1>
 
     <div id="message-box">
-        <h2 id="relationMessage"></h2>
-        <h3 id="senderName"></h3>
-        <p id="senderMessage"></p>
+        <h2 id="relationMessage" class="neon-white"></h2>  <!-- نیون وائٹ -->
+        <h3 id="senderName" class="neon-green"></h3>  <!-- نیون گرین -->
+        <p id="senderMessage" class="neon-white"></p>  <!-- نیون وائٹ -->
     </div>
 
     <p id="screenshot-text">📷 اس پیج کا اسکرین شاٹ لے کر اپنے رشتے داروں کو سینڈ کریں۔ 📷</p>
