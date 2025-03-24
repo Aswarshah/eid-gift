@@ -7,10 +7,11 @@
     <link rel="stylesheet" href="style.css">
     <style>
         body {
-            background-color: black; /* بیک گراؤنڈ بلیک تاکہ وائٹ ٹیکسٹ نظر آئے */
+            background-color: black;
             color: white;
             text-align: center;
             font-family: Arial, sans-serif;
+            padding: 20px;
         }
         .container {
             display: flex;
@@ -23,18 +24,35 @@
         .typing {
             display: inline-block;
             border-right: 2px solid white;
-            white-space: pre-line; /* یہ ٹیکسٹ کو ملٹی لائن میں لانے میں مدد کرے گا */
+            white-space: pre-line;
             overflow: hidden;
             max-width: 90%;
-            font-size: 20px;
+            font-size: 22px;
+            line-height: 1.6;
         }
-        h1, h2 {
-            max-width: 90%;
-            word-wrap: break-word;
+        h1 {
+            font-size: 35px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 0 10px #fff, 0 0 20px #ff0000, 0 0 30px #ff7300;
+            animation: blink 1s infinite alternate;
+        }
+        .neon-text {
+            font-size: 20px;
+            color: white;
+            text-shadow: 0 0 5px #fff, 0 0 10px #ff0000, 0 0 15px #ff7300, 0 0 20px #ff0000;
+            animation: blink 1s infinite alternate;
+        }
+        @keyframes blink {
+            0% { text-shadow: 0 0 10px #ff0000, 0 0 20px #ff7300, 0 0 30px #ff0000; }
+            25% { text-shadow: 0 0 10px #00ff00, 0 0 20px #00ffff, 0 0 30px #00ff00; }
+            50% { text-shadow: 0 0 10px #0000ff, 0 0 20px #7300ff, 0 0 30px #0000ff; }
+            75% { text-shadow: 0 0 10px #ffff00, 0 0 20px #ff00ff, 0 0 30px #ffff00; }
+            100% { text-shadow: 0 0 10px #ff0000, 0 0 20px #ff7300, 0 0 30px #ff0000; }
         }
         p {
             max-width: 90%;
-            font-size: 18px;
+            font-size: 20px;
             text-align: center;
             white-space: pre-line;
         }
@@ -51,10 +69,10 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="neon-text typing" id="animatedTitle">🎉 عید مبارک 🎉</h1>
-        <p id="relationMessage" class="normal-text typing"></p>
-        <h2 id="senderName" class="neon-text name-style typing"></h2>
-        <p id="senderMessage" class="normal-text typing"></p>
+        <h1 id="animatedTitle">🎉 عید مبارک 🎉</h1>
+        <p id="relationMessage" class="neon-text typing"></p>
+        <h2 id="senderName" class="neon-text typing"></h2>
+        <p id="senderMessage" class="neon-text typing"></p>
         <button onclick="downloadApp()">سکرین شارٹ لےکر اپنے  پیاروں کو سینڈ کر دہ</button>
     </div>
 
@@ -76,14 +94,17 @@
         // لوکل سٹوریج سے ڈیٹا لوڈ کرنا
         let relation = localStorage.getItem("relation") || "";
         let senderName = localStorage.getItem("name") || "";
-        let message = "🥰 کی طرف سے\n🎉 ایڈوانس عید الفطر مبارک ہو 🎉\n\nایک خوبصورت دعا 🤲 کےساتھ\nعید کا خوبصورت دن\nآپ کی زندگی میں خوشیاں،🤗 محبت 🥰 اور کامیابیاں 👨‍💼 لے کر آئے۔\n\nآمین ثم آمین🤲\nآپ ہمیشہ ہنستے😁 مسکراتے😊 رہیں 🥰";
+        let message = "🥰 کی طرف سے\n🎉 ایڈوانس عید الفطر مبارک ہو 🎉\n\n" +
+                      "ایک خوبصورت دعا 🤲 کےساتھ\n" +
+                      "عید کا خوبصورت دن\n" +
+                      "آپ کی زندگی میں خوشیاں،🤗 محبت 🥰 اور کامیابیاں 👨‍💼 لے کر آئے۔\n\n" +
+                      "آمین ثم آمین🤲\n" +
+                      "آپ ہمیشہ ہنستے😁 مسکراتے😊 رہیں 🥰";
 
         // ٹائپنگ ایفیکٹ لگانا
-        typeEffect(document.getElementById("animatedTitle"), "🎉 عید مبارک 🎉", 100, function() {
-            typeEffect(document.getElementById("relationMessage"), relation, 50, function() {
-                typeEffect(document.getElementById("senderName"), senderName, 50, function() {
-                    typeEffect(document.getElementById("senderMessage"), message, 50);
-                });
+        typeEffect(document.getElementById("relationMessage"), relation, 50, function() {
+            typeEffect(document.getElementById("senderName"), senderName, 50, function() {
+                typeEffect(document.getElementById("senderMessage"), message, 50);
             });
         });
 
