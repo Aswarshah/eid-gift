@@ -36,35 +36,36 @@
             border-radius: 10px;
             box-shadow: 0px 0px 15px rgba(255,255,255,0.4);
             display: inline-block;
-            animation: blink 2s infinite alternate;
+            animation: multiBlink 1.5s infinite alternate;
         }
 
-        /* نیون لائٹ ایفیکٹ */
+        /* نیون ایفیکٹ */
         .neon-white {
             color: white;
-            text-shadow: 0px 0px 10px white, 0px 0px 20px white;
-            animation: neonBlink 1.5s infinite alternate;
+            text-shadow: 0px 0px 10px white, 0px 0px 20px white, 0px 0px 30px cyan, 0px 0px 40px blue;
+            animation: multiBlink 1.5s infinite alternate;
         }
 
-        .neon-green {
-            color: #00FF00;
-            text-shadow: 0px 0px 10px #00FF00, 0px 0px 20px #00FF00;
-            animation: neonBlink 1.5s infinite alternate;
+        .neon-red {
+            color: #FF0000;
+            text-shadow: 0px 0px 10px #FF0000, 0px 0px 20px #FF4500, 0px 0px 30px red;
+            animation: redBlink 1.5s infinite alternate;
         }
 
-        @keyframes neonBlink {
-            0% { text-shadow: 0px 0px 10px white, 0px 0px 20px white; }
-            100% { text-shadow: 0px 0px 20px white, 0px 0px 40px white; }
+        @keyframes multiBlink {
+            0% { text-shadow: 0px 0px 10px white, 0px 0px 20px cyan, 0px 0px 30px blue; }
+            100% { text-shadow: 0px 0px 20px white, 0px 0px 30px cyan, 0px 0px 40px blue; }
         }
 
-        @keyframes blink {
-            0% { box-shadow: 0px 0px 15px rgba(255,255,255,0.4); }
-            100% { box-shadow: 0px 0px 25px rgba(255,255,255,0.9); }
+        @keyframes redBlink {
+            0% { text-shadow: 0px 0px 10px #FF0000, 0px 0px 20px #FF4500; }
+            100% { text-shadow: 0px 0px 20px #FF0000, 0px 0px 30px red; }
         }
 
         #screenshot-text {
             font-size: 18px;
             margin-top: 20px;
+            font-family: Arial, sans-serif;
             color: #FFD700;
             text-shadow: 0px 0px 10px #FFD700;
         }
@@ -75,9 +76,9 @@
     <h1>🌙🎉 عید مبارک 🎉🌙</h1>
 
     <div id="message-box">
-        <h2 id="relationMessage" class="neon-white"></h2>  <!-- نیون وائٹ -->
-        <h3 id="senderName" class="neon-green"></h3>  <!-- نیون گرین -->
-        <p id="senderMessage" class="neon-white"></p>  <!-- نیون وائٹ -->
+        <h2 id="relationMessage" class="neon-white"></h2>  <!-- نیون وائٹ (ملٹی کلر بلنکنگ) -->
+        <h3 id="senderName" class="neon-red"></h3>  <!-- نیون ریڈ بلنکنگ -->
+        <p id="senderMessage" class="neon-white"></p>  <!-- نیون وائٹ (ملٹی کلر بلنکنگ) -->
     </div>
 
     <p id="screenshot-text">📷 اس پیج کا اسکرین شاٹ لے کر اپنے رشتے داروں کو سینڈ کریں۔ 📷</p>
