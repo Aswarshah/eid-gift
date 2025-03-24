@@ -28,7 +28,7 @@
             100% { text-shadow: 0 0 5px green, 0 0 10px blue, 0 0 15px purple, 0 0 20px red; }
         }
 
-        input {
+        input, select {
             width: 80%;
             padding: 10px;
             margin: 20px 0;
@@ -85,6 +85,13 @@
             text-shadow: 0 0 5px white, 0 0 10px white;
             animation: buttonBlink 2s infinite alternate;
         }
+
+        #message-container {
+            margin-top: 30px;
+            font-size: 22px;
+            font-weight: bold;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -93,21 +100,27 @@
         <h2 class="neon-text">اپنے پیارے کے لیے عید مبارک کا پیغام بنائیں</h2>
         <input type="text" id="nameInput" placeholder="اپنا نام لکھیں">
         <div class="buttons">
-            <button onclick="setRelation('میرے پیارے سے بھائی کو')">بھائی</button>
-            <button onclick="setRelation('میری پیاری سی بہن کو')">بہن</button>
+            <button onclick="setRelation('میرے پیارے بھائی کو')">بھائی</button>
+            <button onclick="setRelation('میری پیاری بہن کو')">بہن</button>
             <button onclick="setRelation('میری پیاری امی جان کو')">امی</button>
             <button onclick="setRelation('میرے پیارے ابو جان کو')">ابو</button>
             <button onclick="setRelation('میرے پیارے دوست کو')">دوست</button>
             <button onclick="setRelation('میری پیاری کزن کو')">کزن</button>
-            <button onclick="setRelation('میرے پیارے چاچا جان کو')">چاچا</button>
-            <button onclick="setRelation('میری پیاری چاچی جان کو')">چاچی</button>
-            <button onclick="setRelation('میرے پیارے ماموں جان کو')">ماموں</button>
-            <button onclick="setRelation('میری پیاری مامی جان کو')">مامی</button>
-            <button onclick="setRelation('میرے پیارے استاد جی کو')">استاد</button>
-            <button onclick="setRelation('میری پیاری خالہ جان کو')">خالہ</button>
-            <button onclick="setRelation('میرے پیارے خالو جان کو')">خالو</button>
+            <button onclick="setRelation('میرے پیارے استاد کو')">استاد</button>
+            <button onclick="setStudentsRelation()">سٹوڈنٹس</button>
         </div>
+
+        <select id="studentsOptions" style="display: none;">
+            <option value="">--منتخب کریں--</option>
+            <option value="ہمارے پیارے طلبہ کو اکیڈمی کی طرف سے">اکیڈمی کی طرف سے</option>
+            <option value="ہمارے پیارے طلبہ کو سکول کی طرف سے">سکول کی طرف سے</option>
+            <option value="ہمارے پیارے طلبہ کو فلاں استاد کی طرف سے">فلاں استاد کی طرف سے</option>
+            <option value="ہمارے پیارے طلبہ کو ہیڈ ماسٹر کی طرف سے">ہیڈ ماسٹر کی طرف سے</option>
+        </select>
+
         <button class="send-button" onclick="sendMessage()">سینڈ</button>
+
+        <div id="message-container"></div>
     </div>
 
     <script>
@@ -115,17 +128,29 @@
 
         function setRelation(selectedRelation) {
             relation = selectedRelation;
+            document.getElementById("studentsOptions").style.display = "none";
+        }
+
+        function setStudentsRelation() {
+            relation = "";
+            document.getElementById("studentsOptions").style.display = "block";
         }
 
         function sendMessage() {
             let name = document.getElementById("nameInput").value;
-            if (name === "" || relation === "") {
+            let studentsOption = document.getElementById("studentsOptions").value;
+            let messageContainer = document.getElementById("message-container");
+
+            if (name === "" || (relation === "" && studentsOption === "")) {
                 alert("براہ کرم اپنا نام اور رشتہ منتخب کریں");
                 return;
             }
-            localStorage.setItem("relation", relation);
-            localStorage.setItem("name", name);
-            window.location.href = "send.html";
+
+            let finalRelation = relation ? relation : studentsOption;
+            let message = `<p class="neon-text">${finalRelation} ${name} کی طرف سے: عید الفطر مبارک ہو! 🌙✨</p>`;
+            
+            messageContainer.innerHTML = message;
+            messageContainer.style.display = "block";
         }
     </script>
 
