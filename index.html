@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="ur">
 <head>
-
+    <script type="module" src="firebase.js"></script>
+    <input type="text" id="messageInput" placeholder="اپنا عید میسج لکھیں">
+<button onclick="sendMessage()">Send</button>
+    <script type="module">
   import { addGreetingMessage } from "./firebase.js";
   
   window.sendMessage = function () {
