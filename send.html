@@ -6,11 +6,46 @@
     <title>آپ کا عید مبارک گفٹ تیار ہے</title>
     <link rel="stylesheet" href="style.css">
     <style>
+        body {
+            background-color: black; /* بیک گراؤنڈ بلیک تاکہ وائٹ ٹیکسٹ نظر آئے */
+            color: white;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 10px;
+        }
         .typing {
             display: inline-block;
-            border-right: 2px solid #fff;
-            white-space: nowrap;
+            border-right: 2px solid white;
+            white-space: pre-line; /* یہ ٹیکسٹ کو ملٹی لائن میں لانے میں مدد کرے گا */
             overflow: hidden;
+            max-width: 90%;
+            font-size: 20px;
+        }
+        h1, h2 {
+            max-width: 90%;
+            word-wrap: break-word;
+        }
+        p {
+            max-width: 90%;
+            font-size: 18px;
+            text-align: center;
+            white-space: pre-line;
+        }
+        button {
+            background-color: white;
+            color: black;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -41,7 +76,7 @@
         // لوکل سٹوریج سے ڈیٹا لوڈ کرنا
         let relation = localStorage.getItem("relation") || "";
         let senderName = localStorage.getItem("name") || "";
-        let message = "🥰کی طرف سے 🎉 ایڈوانس عید الفطر مبارک ہو 🎉 .ایک خوبصورت دعا 🤲 کےساتھ عید کا خوبصورت دن آپ کی زندگی میں خوشیاں،🤗 محبت 🥰 اور کامیابیاں 👨‍💼 لے کر آئے۔ آمین ثم آمین🤲 آپ ہمیشہ ہستے😁 مسکراتے😊 رہیں 🥰";
+        let message = "🥰 کی طرف سے\n🎉 ایڈوانس عید الفطر مبارک ہو 🎉\n\nایک خوبصورت دعا 🤲 کےساتھ\nعید کا خوبصورت دن\nآپ کی زندگی میں خوشیاں،🤗 محبت 🥰 اور کامیابیاں 👨‍💼 لے کر آئے۔\n\nآمین ثم آمین🤲\nآپ ہمیشہ ہنستے😁 مسکراتے😊 رہیں 🥰";
 
         // ٹائپنگ ایفیکٹ لگانا
         typeEffect(document.getElementById("animatedTitle"), "🎉 عید مبارک 🎉", 100, function() {
