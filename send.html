@@ -16,72 +16,61 @@
             direction: rtl;
             background-color: #000; /* بلیک بیک گراؤنڈ */
             color: white;
-            padding: 20px;
+            padding: 10px; /* کم اسپیس تاکہ موبائل پر فٹ آ جائے */
         }
 
         h1 {
-            font-size: 35px;
+            font-size: 28px; /* تھوڑا چھوٹا کیا */
             color: #FFD700;
-            text-shadow: 0px 0px 15px #FFD700, 0px 0px 30px #FF4500;
+            text-shadow: 0px 0px 10px #FFD700, 0px 0px 20px #FF4500;
             animation: glow 1.5s infinite alternate;
         }
 
         @keyframes glow {
-            0% { text-shadow: 0px 0px 10px #FFD700, 0px 0px 20px #FF4500; }
-            100% { text-shadow: 0px 0px 20px #FFD700, 0px 0px 40px #FF4500; }
+            0% { text-shadow: 0px 0px 8px #FFD700, 0px 0px 16px #FF4500; }
+            100% { text-shadow: 0px 0px 16px #FFD700, 0px 0px 32px #FF4500; }
         }
 
         #message-box {
             font-family: 'Jameel Noori Nastaleeq', serif;
             background: black;
             color: white;
-            padding: 20px;
+            padding: 10px;
             border-radius: 10px;
-            box-shadow: 0px 0px 15px rgba(255,255,255,0.4);
+            box-shadow: 0px 0px 10px rgba(255,255,255,0.4);
             display: inline-block;
-            font-size: 28px; /* بڑا سائز تاکہ آسانی سے نظر آئے */
-            line-height: 1.8; /* لائنوں کے درمیان مناسب فاصلہ */
+            font-size: 22px; /* چھوٹا کیا تاکہ اسکرین پر فٹ ہو */
+            line-height: 1.6; /* لائنوں کا فاصلہ مناسب رکھا */
             animation: multiBlink 1.5s infinite alternate;
+            max-width: 90%; /* اسکرین پر پورا آئے */
         }
 
-        /* نیون ایفیکٹ */
         .neon-white {
             color: white;
-            text-shadow: 0px 0px 10px white, 0px 0px 20px cyan, 0px 0px 30px blue, 0px 0px 40px blue;
+            text-shadow: 0px 0px 8px white, 0px 0px 16px cyan, 0px 0px 24px blue;
         }
 
         .neon-red {
             color: #FF0000;
-            text-shadow: 0px 0px 10px #FF0000, 0px 0px 20px #FF4500, 0px 0px 30px red;
+            text-shadow: 0px 0px 8px #FF0000, 0px 0px 16px #FF4500;
         }
 
         @keyframes multiBlink {
-            0% { text-shadow: 0px 0px 10px white, 0px 0px 20px cyan, 0px 0px 30px blue; }
-            100% { text-shadow: 0px 0px 20px white, 0px 0px 30px cyan, 0px 0px 40px blue; }
-        }
-
-        @keyframes redBlink {
-            0% { text-shadow: 0px 0px 10px #FF0000, 0px 0px 20px #FF4500; }
-            100% { text-shadow: 0px 0px 20px #FF0000, 0px 0px 30px red; }
-        }
-
-        /* بلنکنگ ایفیکٹ */
-        .dot-blink span {
-            display: inline-block;
-            animation: blinkEffect 1s infinite alternate;
+            0% { text-shadow: 0px 0px 8px white, 0px 0px 16px cyan, 0px 0px 24px blue; }
+            100% { text-shadow: 0px 0px 16px white, 0px 0px 24px cyan, 0px 0px 32px blue; }
         }
 
         @keyframes blinkEffect {
             0% { opacity: 1; }
-            100% { opacity: 0.3; }
+            100% { opacity: 0.5; }
         }
 
         #screenshot-text {
-            font-size: 18px;
-            margin-top: 20px;
+            font-size: 14px; /* تھوڑا چھوٹا کیا */
+            margin-top: 10px;
             font-family: Arial, sans-serif;
             color: #FFD700;
-            text-shadow: 0px 0px 10px #FFD700;
+            text-shadow: 0px 0px 8px #FFD700;
         }
     </style>
 </head>
@@ -90,9 +79,9 @@
     <h1>🌙🎉 عید مبارک 🎉🌙</h1>
 
     <div id="message-box">
-        <h2 id="relationMessage" class="neon-white dot-blink"></h2>  <!-- نیون وائٹ (ملٹی کلر بلنکنگ) -->
-        <h3 id="senderName" class="neon-red dot-blink"></h3>  <!-- نیون ریڈ بلنکنگ -->
-        <p id="senderMessage" class="neon-white dot-blink"></p>  <!-- نیون وائٹ (ملٹی کلر بلنکنگ) -->
+        <h2 id="relationMessage" class="neon-white"></h2>
+        <h3 id="senderName" class="neon-red"></h3>
+        <p id="senderMessage" class="neon-white"></p>
     </div>
 
     <p id="screenshot-text">📷 اس پیج کا اسکرین شاٹ لے کر اپنے رشتے داروں کو سینڈ کریں۔ 📷</p>
@@ -100,7 +89,7 @@
     <script>
         function typeEffect(element, text, speed, callback) {
             let i = 0;
-            element.innerHTML = ""; // پرانا ٹیکسٹ صاف کریں
+            element.innerHTML = ""; 
             function typing() {
                 if (i < text.length) {
                     element.innerHTML += text.charAt(i);
@@ -113,7 +102,6 @@
             typing();
         }
 
-        // لوکل سٹوریج سے ڈیٹا لوڈ کرنا
         let relation = localStorage.getItem("relation") || "";
         let senderName = localStorage.getItem("name") || "";
         let message = "🥰 کی طرف سے\n🎉 ایڈوانس عید الفطر مبارک ہو 🎉\n\n" +
@@ -123,7 +111,6 @@
                       "آمین ثم آمین🤲\n" +
                       "آپ ہمیشہ ہنستے😁 مسکراتے😊 رہیں 🥰";
 
-        // ٹائپنگ ایفیکٹ لگانا
         typeEffect(document.getElementById("relationMessage"), relation, 50, function() {
             typeEffect(document.getElementById("senderName"), senderName, 50, function() {
                 typeEffect(document.getElementById("senderMessage"), message, 50);
