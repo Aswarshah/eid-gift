@@ -14,13 +14,13 @@
             font-family: 'Jameel Noori Nastaleeq', serif;
             text-align: center;
             direction: rtl;
-            background-color: #000; /* بلیک بیک گراؤنڈ */
+            background-color: #000;
             color: white;
-            padding: 10px; /* کم اسپیس تاکہ موبائل پر فٹ آ جائے */
+            padding: 10px;
         }
 
         h1 {
-            font-size: 28px; /* تھوڑا چھوٹا کیا */
+            font-size: 28px;
             color: #FFD700;
             text-shadow: 0px 0px 10px #FFD700, 0px 0px 20px #FF4500;
             animation: glow 1.5s infinite alternate;
@@ -32,27 +32,16 @@
         }
 
         #message-box {
-            font-family: 'Jameel Noori Nastaleeq', serif;
             background: black;
             color: white;
             padding: 10px;
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(255,255,255,0.4);
             display: inline-block;
-            font-size: 22px; /* چھوٹا کیا تاکہ اسکرین پر فٹ ہو */
-            line-height: 1.6; /* لائنوں کا فاصلہ مناسب رکھا */
+            font-size: 22px;
+            line-height: 1.6;
             animation: multiBlink 1.5s infinite alternate;
-            max-width: 90%; /* اسکرین پر پورا آئے */
-        }
-
-        .neon-white {
-            color: white;
-            text-shadow: 0px 0px 8px white, 0px 0px 16px cyan, 0px 0px 24px blue;
-        }
-
-        .neon-red {
-            color: #FF0000;
-            text-shadow: 0px 0px 8px #FF0000, 0px 0px 16px #FF4500;
+            max-width: 90%;
         }
 
         @keyframes multiBlink {
@@ -60,17 +49,29 @@
             100% { text-shadow: 0px 0px 16px white, 0px 0px 24px cyan, 0px 0px 32px blue; }
         }
 
-        @keyframes blinkEffect {
-            0% { opacity: 1; }
-            100% { opacity: 0.5; }
+        #customMessage {
+            width: 80%;
+            height: 80px;
+            font-size: 18px;
+            direction: rtl;
+            padding: 5px;
+            margin-top: 10px;
         }
 
-        #screenshot-text {
-            font-size: 14px; /* تھوڑا چھوٹا کیا */
+        #updateButton {
             margin-top: 10px;
-            font-family: Arial, sans-serif;
-            color: #FFD700;
-            text-shadow: 0px 0px 8px #FFD700;
+            padding: 10px;
+            font-size: 18px;
+            background: #FFD700;
+            border: none;
+            cursor: pointer;
+            color: black;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+
+        #updateButton:hover {
+            background: #FFA500;
         }
     </style>
 </head>
@@ -84,7 +85,9 @@
         <p id="senderMessage" class="neon-white"></p>
     </div>
 
-    <p id="screenshot-text">📷 اس پیج کا اسکرین شاٹ لے کر اپنے رشتے داروں کو سینڈ کریں۔ 📷</p>
+    <textarea id="customMessage" placeholder="اپنی مرضی کی دعا لکھنے کے لیے یہاں پیسٹ کریں"></textarea>
+    <br>
+    <button id="updateButton">اپڈیٹ</button>
 
     <script>
         function typeEffect(element, text, speed, callback) {
@@ -104,17 +107,27 @@
 
         let relation = localStorage.getItem("relation") || "";
         let senderName = localStorage.getItem("name") || "";
-        let message = "🥰 کی طرف سے\n🎉 ایڈوانس عید الفطر مبارک ہو 🎉\n\n" +
+        let defaultMessage = "🥰 کی طرف سے\n🎉 ایڈوانس عید الفطر مبارک ہو 🎉\n\n" +
                       "ایک خوبصورت دعا 🤲 کےساتھ\n" +
                       "عید کا خوبصورت دن\n" +
                       "آپ کی زندگی میں خوشیاں،🤗 محبت 🥰 اور کامیابیاں 👨‍💼 لے کر آئے۔\n\n" +
                       "آمین ثم آمین🤲\n" +
                       "۔آپ ہمیشہ ہنستے اور مسکراتے رہیں 🥰";
 
+        let senderMessageElement = document.getElementById("senderMessage");
+
         typeEffect(document.getElementById("relationMessage"), relation, 50, function() {
             typeEffect(document.getElementById("senderName"), senderName, 50, function() {
-                typeEffect(document.getElementById("senderMessage"), message, 50);
+                typeEffect(senderMessageElement, defaultMessage, 50);
             });
+        });
+
+        document.getElementById("updateButton").addEventListener("click", function() {
+            let newMessage = document.getElementById("customMessage").value;
+            if (newMessage.trim() !== "") {
+                senderMessageElement.innerHTML = "";
+                typeEffect(senderMessageElement, newMessage, 50);
+            }
         });
     </script>
 
