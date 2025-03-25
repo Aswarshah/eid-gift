@@ -5,10 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🌙🎉 عید مبارک 🎉🌙</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&family=Poppins:wght@400;700&display=swap');
+        @font-face {
+            font-family: 'Jameel Noori Nastaleeq';
+            src: url('https://www.fontsaddict.com/fontface/jameel-noori-nastaleeq.ttf');
+        }
 
         body {
-            font-family: 'Noto Nastaliq Urdu', serif;
+            font-family: 'Jameel Noori Nastaleeq', serif;
             text-align: center;
             direction: rtl;
             background-color: #000; /* بلیک بیک گراؤنڈ */
@@ -29,27 +32,27 @@
         }
 
         #message-box {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Jameel Noori Nastaleeq', serif;
             background: black;
             color: white;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0px 0px 15px rgba(255,255,255,0.4);
             display: inline-block;
+            font-size: 28px; /* بڑا سائز تاکہ آسانی سے نظر آئے */
+            line-height: 1.8; /* لائنوں کے درمیان مناسب فاصلہ */
             animation: multiBlink 1.5s infinite alternate;
         }
 
         /* نیون ایفیکٹ */
         .neon-white {
             color: white;
-            text-shadow: 0px 0px 10px white, 0px 0px 20px white, 0px 0px 30px cyan, 0px 0px 40px blue;
-            animation: multiBlink 1.5s infinite alternate;
+            text-shadow: 0px 0px 10px white, 0px 0px 20px cyan, 0px 0px 30px blue, 0px 0px 40px blue;
         }
 
         .neon-red {
             color: #FF0000;
             text-shadow: 0px 0px 10px #FF0000, 0px 0px 20px #FF4500, 0px 0px 30px red;
-            animation: redBlink 1.5s infinite alternate;
         }
 
         @keyframes multiBlink {
@@ -100,9 +103,7 @@
             element.innerHTML = ""; // پرانا ٹیکسٹ صاف کریں
             function typing() {
                 if (i < text.length) {
-                    let span = document.createElement("span");
-                    span.innerHTML = text.charAt(i);
-                    element.appendChild(span);
+                    element.innerHTML += text.charAt(i);
                     i++;
                     setTimeout(typing, speed);
                 } else if (callback) {
