@@ -6,6 +6,7 @@
     <title>🌙🎉 عید مبارک 🎉🌙</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap');
 
         body {
             font-family: 'Noto Nastaliq Urdu', serif;
@@ -29,7 +30,7 @@
         }
 
         #message-box {
-            font-family: 'Noto Nastaliq Urdu', serif;
+            font-family: 'DotGothic16', sans-serif;
             background: black;
             color: white;
             padding: 20px;
@@ -62,6 +63,17 @@
             100% { text-shadow: 0px 0px 20px #FF0000, 0px 0px 30px red; }
         }
 
+        /* ڈاٹڈ بلنکنگ ایفیکٹ */
+        .dot-blink span {
+            display: inline-block;
+            animation: blinkEffect 1s infinite alternate;
+        }
+
+        @keyframes blinkEffect {
+            0% { opacity: 1; }
+            100% { opacity: 0.3; }
+        }
+
         #screenshot-text {
             font-size: 18px;
             margin-top: 20px;
@@ -76,9 +88,9 @@
     <h1>🌙🎉 عید مبارک 🎉🌙</h1>
 
     <div id="message-box">
-        <h2 id="relationMessage" class="neon-white"></h2>  <!-- نیون وائٹ (ملٹی کلر بلنکنگ) -->
-        <h3 id="senderName" class="neon-red"></h3>  <!-- نیون ریڈ بلنکنگ -->
-        <p id="senderMessage" class="neon-white"></p>  <!-- نیون وائٹ (ملٹی کلر بلنکنگ) -->
+        <h2 id="relationMessage" class="neon-white dot-blink"></h2>  <!-- نیون وائٹ (ملٹی کلر بلنکنگ) -->
+        <h3 id="senderName" class="neon-red dot-blink"></h3>  <!-- نیون ریڈ بلنکنگ -->
+        <p id="senderMessage" class="neon-white dot-blink"></p>  <!-- نیون وائٹ (ملٹی کلر بلنکنگ) -->
     </div>
 
     <p id="screenshot-text">📷 اس پیج کا اسکرین شاٹ لے کر اپنے رشتے داروں کو سینڈ کریں۔ 📷</p>
@@ -86,9 +98,12 @@
     <script>
         function typeEffect(element, text, speed, callback) {
             let i = 0;
+            element.innerHTML = ""; // پرانا ٹیکسٹ صاف کریں
             function typing() {
                 if (i < text.length) {
-                    element.innerHTML += text.charAt(i);
+                    let span = document.createElement("span");
+                    span.innerHTML = text.charAt(i);
+                    element.appendChild(span);
                     i++;
                     setTimeout(typing, speed);
                 } else if (callback) {
